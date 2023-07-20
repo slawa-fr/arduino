@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Controller extends Component {
 
     @FXML
-    private Button button7, button8;
+    private Button button1, button2, button7, button8;
 
     @FXML
     private TextField textField1;
@@ -22,16 +22,15 @@ public class Controller extends Component {
     @FXML
     void initialize() {
 
-        Scanner scanner = new Scanner(System.in);
         Arduino arduino = new Arduino("COM4", 9600);
 
-        boolean connected = arduino.openConnection();
-        System.out.println("Соединение установлено: " + connected);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        boolean connected = arduino.openConnection();
+//        System.out.println("Соединение установлено: " + connected);
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
 
 //        label_1:
 //        while (scanner.hasNext()) {
@@ -55,28 +54,41 @@ public class Controller extends Component {
 //            }
 //        }
 
+//Нажатие на кнопку button1 - начало
+        button1.setOnAction(event -> {
+            boolean connected = arduino.openConnection();
+            System.out.println("Соединение установлено: " + connected);
+            myLabel1.setText("Соединение установлено: " + connected);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+//Нажатие на кнопку button1 - конец
+
+//Нажатие на кнопку button2 - начало
+        button2.setOnAction(event -> {
+                    arduino.serialWrite('0');
+                    arduino.closeConnection();
+            System.out.println("Соединение разорвано");
+            myLabel1.setText("Соединение разорвано");
+        });
+//Нажатие на кнопку button2 - конец
 
 //Нажатие на кнопку button7 - начало
         button7.setOnAction(event -> {
-
             arduino.serialWrite('1');
             myLabel1.setText("Питание включено");
-
         });
 //Нажатие на кнопку button7 - конец
 
 //Нажатие на кнопку button8 - начало
         button8.setOnAction(event -> {
-
             arduino.serialWrite('0');
             myLabel1.setText("Питание выключено");
-
-
         });
 //Нажатие на кнопку button8 - конец
-
-
-
 
     }
 
