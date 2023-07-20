@@ -1,18 +1,35 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Main {
-    public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import java.io.IOException;
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+public class Main extends Application {
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+            //System.out.println("root:" + getClass().getResource("sample.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        primaryStage.setTitle("Arduino");
+        primaryStage.setScene(new Scene(root, 650, 650));
+// Чтобы нельзя было изменять размеры окна
+//        primaryStage.setResizable(false);
+        primaryStage.show();
+// предотвратить слишком маленькое окно
+        primaryStage.setMinWidth(primaryStage.getWidth());
+        primaryStage.setMinHeight(primaryStage.getHeight());
+
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
