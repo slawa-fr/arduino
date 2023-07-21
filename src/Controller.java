@@ -14,6 +14,7 @@ public class Controller extends Component {
 
     private  static final String CURRENTDIRECTORY = "user.dir";
     private String comPortNumber;
+    Arduino arduino;
 
     @FXML
     private Button button1, button2, button3, button7, button8;
@@ -57,7 +58,7 @@ public class Controller extends Component {
         textField1.setText(String.valueOf(comPortNumber));
 
         //Arduino arduino = new Arduino("COM4", 9600);
-        Arduino arduino = new Arduino(comPortNumber, 9600);
+        arduino = new Arduino(comPortNumber, 9600);
 
 //Нажатие на кнопку button1 - начало
         button1.setOnAction(event -> {
@@ -85,6 +86,7 @@ public class Controller extends Component {
         button3.setOnAction(event -> {
             saveToPropertiesSetting();
             comPortNumber = textField1.getText();
+            arduino = new Arduino(comPortNumber, 9600);
         });
 //Нажатие на кнопку button3 - конец
 
