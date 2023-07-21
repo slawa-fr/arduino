@@ -95,14 +95,14 @@ public class Controller extends Component {
 //Нажатие на кнопку button7 - начало
         button7.setOnAction(event -> {
             arduino.serialWrite('1');
-            myLabel1.setText("Питание включено");
+            myLabel1.setText("Питание выключено");
         });
 //Нажатие на кнопку button7 - конец
 
 //Нажатие на кнопку button8 - начало
         button8.setOnAction(event -> {
             arduino.serialWrite('0');
-            myLabel1.setText("Питание выключено");
+            myLabel1.setText("Питание включено");
         });
 //Нажатие на кнопку button8 - конец
 
