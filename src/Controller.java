@@ -16,7 +16,7 @@ public class Controller extends Component {
     private String comPortNumber;
 
     @FXML
-    private Button button1, button2, button7, button8;
+    private Button button1, button2, button3, button7, button8;
 
     @FXML
     private Label myLabel1;
@@ -51,11 +51,10 @@ public class Controller extends Component {
             e.printStackTrace();
         }
 
-// Получить значения nameKA, ПТ, широты - lat и долготы - lon из database/setting.properties"
+// Получить значение comPortNumber из database/setting.properties"
         comPortNumber = appProps.getProperty("comPortNumber", "COM4");
 // Установить их в textField
         textField1.setText(String.valueOf(comPortNumber));
-
 
         //Arduino arduino = new Arduino("COM4", 9600);
         Arduino arduino = new Arduino(comPortNumber, 9600);
@@ -81,6 +80,15 @@ public class Controller extends Component {
             myLabel1.setText("Соединение разорвано");
         });
 //Нажатие на кнопку button2 - конец
+
+//Нажатие на кнопку button3 - начало
+        button3.setOnAction(event -> {
+            saveToPropertiesSetting();
+            comPortNumber = textField1.getText();
+        });
+//Нажатие на кнопку button3 - конец
+
+
 
 //Нажатие на кнопку button7 - начало
         button7.setOnAction(event -> {
@@ -175,6 +183,29 @@ public class Controller extends Component {
         }
         catch (IOException exc) {
             exc.printStackTrace();
+        }
+    }
+
+    // Метод сохранения в properties
+    void saveToPropertiesSetting() {
+// Загружаем  setting.properties из папки database
+        File theDir17 = new File(System.getProperty(CURRENTDIRECTORY),"database/setting.properties");
+        Properties appProps = new Properties();
+        try {
+            appProps.load(new BufferedReader(new InputStreamReader(new FileInputStream(theDir17), "UTF-8")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        comPortNumber = textField1.getText();
+
+        appProps.setProperty("comPortNumber", String.valueOf(comPortNumber));
+
+// Сохраним в setting.properties внесенные изменения из текстовых полей
+        String newAppProps = "database/setting.properties";
+        try {
+            appProps.store(new FileWriter(newAppProps), "store");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
