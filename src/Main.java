@@ -20,7 +20,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
         primaryStage.setTitle("Arduino");
-        primaryStage.setScene(new Scene(root, 650, 650));
+        primaryStage.setScene(new Scene(root, 500, 150));
 // Чтобы нельзя было изменять размеры окна
 //        primaryStage.setResizable(false);
         primaryStage.show();
