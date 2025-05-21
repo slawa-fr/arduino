@@ -47,7 +47,6 @@ public class Controller extends Component {
             //String url = "https://www.flysat.com"; // Не работает
             // String url = "https://www.lyngsat.com/Express-AM7.html"; // OK
 
-
 // OK
 //            String url = "https://www.lyngsat.com/Turksat-4A.html";
 //            Document doc = Jsoup.connect(url).userAgent("Chrome").ignoreHttpErrors(true).timeout(5000).get();
@@ -58,30 +57,8 @@ public class Controller extends Component {
             Document doc = Jsoup.parse(file, "UTF-8", "hh.ru");
             //System.out.println(doc);
 
-
-// OK
-//            Elements links = doc.select("a");
-//            for (Element link : links) {
-//                System.out.println(link.attr("href"));
-//            }
-
-
-// ОК - извлечение всего текста после параграфа
-//            Elements paragraphs = doc.select("p");
-//            for (Element paragraph : paragraphs) {
-//                System.out.println(paragraph.text());
-//            }
-
-
-// ОК - из тега h1
-//            Elements h1 = doc.select("h1");
-//            System.out.println(h1);
-
-
 //////////////////////////////////////////////////////////
 // https://javarush.com/groups/posts/2767-parsing-html-bibliotekoy-jsoup-
-
-
 
 //            body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(5) > td:nth-child(3) > b:nth-child(1)
 //            body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(11) > td:nth-child(3) > b:nth-child(1)
@@ -129,22 +106,16 @@ public class Controller extends Component {
                    j = i;
                    //System.out.println("i = " + i + " j = " + j);
 
-
 // Выберем из HTML страницы строчку, содержащую символьную скорость и FEC
-                   //body > table:nth-child(6) > tbody > tr:nth-child(5) > td:nth-child(4)
-                   //body > table:nth-child(6) > tbody > tr:nth-child(11) > td:nth-child(4)
-                   //body > table:nth-child(6) > tbody > tr:nth-child(17) > td:nth-child(4)
                    Elements titleElem2 = doc.select("body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child("+ j +") > td:nth-child(4)");
                    //System.out.println(titleElem2);
-                   //Elements titleElem2 = doc.select("body > table:nth-child(6) > tbody > tr:nth-child(5) > td:nth-child(4)");
-                   //String m1 = String.valueOf(titleElem2).replace("<td rowspan=\"6\" align=\"center\">", "").replace("<td rowspan=\"16\" align=\"center\">", "").replace("<td rowspan=\"12\" align=\"center\">", "").replace("<td rowspan=\"2\" align=\"center\">", "").replace("<td rowspan=\"7\" align=\"center\">", "").replace("<td rowspan=\"15\" align=\"center\">", "");
-                   String m1 = String.valueOf(titleElem2).replace("<td rowspan=\"1\" align=\"center\"></td>", "").replace("<td rowspan=\"6\" align=\"center\">", "").replace("<td rowspan=\"16\" align=\"center\">", "").replace("<td rowspan=\"12\" align=\"center\">", "").replace("<td rowspan=\"2\" align=\"center\">", "").replace("<td rowspan=\"7\" align=\"center\">", "").replace("<td rowspan=\"15\" align=\"center\">", "").replace("<td rowspan=\"1\" align=\"center\">", "").replace("<td rowspan=\"59\" align=\"center\">", "").replace("A", "");
+                   String m1 = String.valueOf(titleElem2).replace("<td rowspan=\"1\" align=\"center\"></td>", "").replace("<td rowspan=\"6\" align=\"center\">", "").replace("<td rowspan=\"16\" align=\"center\">", "").replace("<td rowspan=\"12\" align=\"center\">", "").replace("<td rowspan=\"2\" align=\"center\">", "").replace("<td rowspan=\"7\" align=\"center\">", "").replace("<td rowspan=\"15\" align=\"center\">", "").replace("<td rowspan=\"1\" align=\"center\">", "").replace("<td rowspan=\"59\" align=\"center\">", "").replace("A", "").replace("<td rowspan=\"3\" align=\"center\">", "");
                    //System.out.println(m1);
                    String m2 = (m1 != null && !m1.isEmpty()) ? m1.substring(0, m1.length() - 14) : null;
                    //System.out.println(m2);
 // OK
-                if((s1 != null && !s1.isEmpty()) && (m1 != null && !m1.isEmpty())){
-                    System.out.println("i = " + i + " " + s2 + " " + m2);
+                if((s2 != null && !s2.isEmpty()) && (m2 != null && !m2.isEmpty())){
+                    System.out.println("040E " + s2 + " " + m2);
                 }
 
 
