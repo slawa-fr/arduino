@@ -113,7 +113,7 @@ public class Controller extends Component {
 
 
 
-            for (int i = 2; i < 2000; i++) {
+            for (int i = 2; i < 200; i++) {
 
 // Выберем из HTML страницы строчку, содержащую частоту и поляризацию
                 Elements titleElem = doc.select("body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child("+ i +") > td:nth-child(3) > b:nth-child(1)");
@@ -123,15 +123,35 @@ public class Controller extends Component {
 // Проверим как выводится частота
                 //System.out.println(s2);
 
+                int j = 0;
+
+               if(s1 != null && !s1.isEmpty()){
+                   j = i;
+                   //System.out.println("i = " + i + " j = " + j);
+
+
 // Выберем из HTML страницы строчку, содержащую символьную скорость и FEC
-                Elements titleElem2 = doc.select("body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child("+ i +") > td:nth-child(4)");
-                String m1 = String.valueOf(titleElem2).replace("<td rowspan=\"6\" align=\"center\">", "");
-                String m2 = (m1 != null && !m1.isEmpty()) ? m1.substring(0, m1.length() - 14) : null;
-
-
+                   //body > table:nth-child(6) > tbody > tr:nth-child(5) > td:nth-child(4)
+                   //body > table:nth-child(6) > tbody > tr:nth-child(11) > td:nth-child(4)
+                   //body > table:nth-child(6) > tbody > tr:nth-child(17) > td:nth-child(4)
+                   Elements titleElem2 = doc.select("body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child("+ j +") > td:nth-child(4)");
+                   //Elements titleElem2 = doc.select("body > table:nth-child(6) > tbody > tr:nth-child(5) > td:nth-child(4)");
+                   String m1 = String.valueOf(titleElem2).replace("<td rowspan=\"6\" align=\"center\">", "");
+                   //System.out.println(m1);
+                   String m2 = (m1 != null && !m1.isEmpty()) ? m1.substring(0, m1.length() - 14) : null;
+                   //System.out.println(m2);
+// OK
                 if((s1 != null && !s1.isEmpty()) && (m1 != null && !m1.isEmpty())){
                     System.out.println("i = " + i + " " + s2 + " " + m2);
                 }
+
+
+
+                }
+
+
+
+
 
 
             }
