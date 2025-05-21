@@ -111,34 +111,27 @@ public class Controller extends Component {
 //            System.out.println(titleElem2);
 // OKOK
 
-            int countA = 1;
 
 
-            for (int i = 2; i < 20; i++) {
+            for (int i = 2; i < 2000; i++) {
 
 // Выберем из HTML страницы строчку, содержащую частоту и поляризацию
                 Elements titleElem = doc.select("body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child("+ i +") > td:nth-child(3) > b:nth-child(1)");
-                String s1 = String.valueOf(titleElem).replace("<b>", "").replace("</b>", "");;
-                String s2 = s1.replace('<td rowspan=', '');
-
-//                Метод substring() возвращает подстроку, начиная с определенного индекса до конца или до определенного индекса:
-//                String str = "Hello world";
-//                String substr1 = str.substring(6); // world
-//                String substr2 = str.substring(3,5); //lo
-
-//                Метод replace() позволяет заменить в строке одну последовательность символов на другую:
-//                String str = "Hello world";
-//                String replStr1 = str.replace('l', 'd'); // Heddo wordd
-//                String replStr2 = str.replace("Hello", "Bye"); // Bye world
-
-
-
+                String s1 = String.valueOf(titleElem).replace("<b>", "").replace("</b>", "");
+// удалить последний символ в строке java, т.е. поляризацию, заодно проверим на то чтобы строка не была пустой
+                String s2 = (s1 != null && !s1.isEmpty()) ? s1.substring(0, s1.length() - 1) : null;
+// Проверим как выводится частота
+                //System.out.println(s2);
 
 // Выберем из HTML страницы строчку, содержащую символьную скорость и FEC
                 Elements titleElem2 = doc.select("body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child("+ i +") > td:nth-child(4)");
-                String m2 = String.valueOf(titleElem2);
+                String m1 = String.valueOf(titleElem2).replace("<td rowspan=\"6\" align=\"center\">", "");
+                String m2 = (m1 != null && !m1.isEmpty()) ? m1.substring(0, m1.length() - 14) : null;
 
-                System.out.println("i = " + i + " " + s2 + " " + m2);
+
+                if((s1 != null && !s1.isEmpty()) && (m1 != null && !m1.isEmpty())){
+                    System.out.println("i = " + i + " " + s2 + " " + m2);
+                }
 
 
             }
