@@ -113,7 +113,7 @@ public class Controller extends Component {
 
 
 
-            for (int i = 2; i < 200; i++) {
+            for (int i = 2; i < 2000; i++) {
 
 // Выберем из HTML страницы строчку, содержащую частоту и поляризацию
                 Elements titleElem = doc.select("body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child("+ i +") > td:nth-child(3) > b:nth-child(1)");
@@ -135,8 +135,10 @@ public class Controller extends Component {
                    //body > table:nth-child(6) > tbody > tr:nth-child(11) > td:nth-child(4)
                    //body > table:nth-child(6) > tbody > tr:nth-child(17) > td:nth-child(4)
                    Elements titleElem2 = doc.select("body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child("+ j +") > td:nth-child(4)");
+                   //System.out.println(titleElem2);
                    //Elements titleElem2 = doc.select("body > table:nth-child(6) > tbody > tr:nth-child(5) > td:nth-child(4)");
-                   String m1 = String.valueOf(titleElem2).replace("<td rowspan=\"6\" align=\"center\">", "");
+                   //String m1 = String.valueOf(titleElem2).replace("<td rowspan=\"6\" align=\"center\">", "").replace("<td rowspan=\"16\" align=\"center\">", "").replace("<td rowspan=\"12\" align=\"center\">", "").replace("<td rowspan=\"2\" align=\"center\">", "").replace("<td rowspan=\"7\" align=\"center\">", "").replace("<td rowspan=\"15\" align=\"center\">", "");
+                   String m1 = String.valueOf(titleElem2).replace("<td rowspan=\"1\" align=\"center\"></td>", "").replace("<td rowspan=\"6\" align=\"center\">", "").replace("<td rowspan=\"16\" align=\"center\">", "").replace("<td rowspan=\"12\" align=\"center\">", "").replace("<td rowspan=\"2\" align=\"center\">", "").replace("<td rowspan=\"7\" align=\"center\">", "").replace("<td rowspan=\"15\" align=\"center\">", "").replace("<td rowspan=\"1\" align=\"center\">", "").replace("<td rowspan=\"59\" align=\"center\">", "").replace("A", "");
                    //System.out.println(m1);
                    String m2 = (m1 != null && !m1.isEmpty()) ? m1.substring(0, m1.length() - 14) : null;
                    //System.out.println(m2);
