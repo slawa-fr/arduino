@@ -3,12 +3,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.Properties;
 
 // https://habr.com/ru/articles/340630/
+
+// 21.05.2025 - парсинг сайта
+// Вначале нужно скачать 3 файла библиотеки Jsoup (jsoup-1.20.1.jar, jsoup-1.20.1-javadoc.jar, jsoup-1.20.1-sources.jar )и положить в папку lib своего проекта
 
 public class Controller extends Component {
 
@@ -27,6 +35,160 @@ public class Controller extends Component {
 
     @FXML
     void initialize() {
+
+
+// Образец кода
+// https://goparse.ru/java-jsoup
+
+        try {
+            // String url = "https://example.com";
+            // String url = "https://goparse.ru/java-jsoup";
+            // String url = "https://www.satbeams.com/satellites?status=active"; //OK
+            //String url = "https://www.flysat.com"; // Не работает
+            // String url = "https://www.lyngsat.com/Express-AM7.html"; // OK
+
+
+// OK
+//            String url = "https://www.lyngsat.com/Turksat-4A.html";
+//            Document doc = Jsoup.connect(url).userAgent("Chrome").ignoreHttpErrors(true).timeout(5000).get();
+//            System.out.println(doc);
+
+
+            File file = new File("D:/07/AM7.htm");
+            Document doc = Jsoup.parse(file, "UTF-8", "hh.ru");
+            //System.out.println(doc);
+
+
+// OK
+//            Elements links = doc.select("a");
+//            for (Element link : links) {
+//                System.out.println(link.attr("href"));
+//            }
+
+
+// ОК - извлечение всего текста после параграфа
+//            Elements paragraphs = doc.select("p");
+//            for (Element paragraph : paragraphs) {
+//                System.out.println(paragraph.text());
+//            }
+
+
+// ОК - из тега h1
+//            Elements h1 = doc.select("h1");
+//            System.out.println(h1);
+
+
+//////////////////////////////////////////////////////////
+// https://javarush.com/groups/posts/2767-parsing-html-bibliotekoy-jsoup-
+
+
+
+//            body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(5) > td:nth-child(3) > b:nth-child(1)
+//            body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(11) > td:nth-child(3) > b:nth-child(1)
+//            body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(17) > td:nth-child(3) > b:nth-child(1)
+//
+//            body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(5) > td:nth-child(4)
+//            body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(11) > td:nth-child(4)
+//            body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(17) > td:nth-child(4)
+//
+//            это самый последний элемент - 410
+//            body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(410) > td:nth-child(3) > b:nth-child(1)
+//            body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(410) > td:nth-child(4)
+//
+//            это самый первый элемент - 4
+//            body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(3) > b:nth-child(1)
+//            body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(4)
+
+
+// OK - Получить теги title. Знак > выбирает теги title вложенные в тег head
+//            Elements titleElem = doc.select("head > title");
+//            System.out.println(titleElem);
+
+// OKOK
+//            Elements titleElem = doc.select("body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(5) > td:nth-child(3) > b:nth-child(1)");
+//            Elements titleElem2 = doc.select("body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child(5) > td:nth-child(4)");
+//            System.out.println(titleElem);
+//            System.out.println(titleElem2);
+// OKOK
+
+            int countA = 1;
+
+
+            for (int i = 2; i < 20; i++) {
+
+// Выберем из HTML страницы строчку, содержащую частоту и поляризацию
+                Elements titleElem = doc.select("body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child("+ i +") > td:nth-child(3) > b:nth-child(1)");
+                String s1 = String.valueOf(titleElem).replace("<b>", "").replace("</b>", "");;
+                String s2 = s1.replace('<td rowspan=', '');
+
+//                Метод substring() возвращает подстроку, начиная с определенного индекса до конца или до определенного индекса:
+//                String str = "Hello world";
+//                String substr1 = str.substring(6); // world
+//                String substr2 = str.substring(3,5); //lo
+
+//                Метод replace() позволяет заменить в строке одну последовательность символов на другую:
+//                String str = "Hello world";
+//                String replStr1 = str.replace('l', 'd'); // Heddo wordd
+//                String replStr2 = str.replace("Hello", "Bye"); // Bye world
+
+
+
+
+// Выберем из HTML страницы строчку, содержащую символьную скорость и FEC
+                Elements titleElem2 = doc.select("body > table:nth-child(6) > tbody:nth-child(1) > tr:nth-child("+ i +") > td:nth-child(4)");
+                String m2 = String.valueOf(titleElem2);
+
+                System.out.println("i = " + i + " " + s2 + " " + m2);
+
+
+            }
+
+
+
+
+
+
+// OK
+//            Elements titleElem = doc.select("td > span");
+//            System.out.println(titleElem);
+
+// Получить первый тег span вложенный в td
+            // Elements firstDiv = doc.select("td > span:nth-child(1)");
+            //System.out.println(firstDiv);
+
+// Получить тег div c классом "content", вложенный в body
+// Elements contentElem = document.select("body > div.content");
+
+
+
+// Далее по этой инструкции
+// https://javarush.com/groups/posts/2767-parsing-html-bibliotekoy-jsoup-
+
+// Получить теги c id "123"
+// Elements idElem = document.select("#123");
+
+// Получить теги div c классом "header" и "main", вложенные в body,  но без тегов h1
+// Elements divHeader = document.select("body > div.header.main :not(h1)");
+
+//            Elements divHeader = doc.select("b > href");
+//            System.out.println(divHeader);
+
+            //Elements idElem = doc.select("bigtable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) > table:nth-child(15) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > font:nth-child(1) > font:nth-child(1) > b:nth-child(1) > a:nth-child(1)");
+            //Elements idElem = doc.select("bigtable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) > table:nth-child(15) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > font:nth-child(1) > font:nth-child(1) > b:nth-child(1) > a:nth-child(1)");
+            //System.out.println(idElem);
+
+
+//css selector
+// .bigtable > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) > table:nth-child(15) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > font:nth-child(1) > font:nth-child(1) > b:nth-child(1) > a:nth-child(1)
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
 
 // Проверка существования каталога database
         File theDir0 = new File(System.getProperty(CURRENTDIRECTORY),"database");
